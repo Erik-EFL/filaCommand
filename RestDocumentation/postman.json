@@ -1,0 +1,136 @@
+{
+  "info": {
+    "_postman_id": "6d37aa7f-670f-4e8f-99d5-f54882f3f14c",
+    "name": "Fila API",
+    "description": "API for managing a queue of people.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GetUserByID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "insomnia/2023.5.8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{ _.url }}user/1",
+          "host": [
+            "{{ _.url }}"
+          ],
+          "path": [
+            "user",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetUserByName",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "insomnia/2023.5.8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{ _.url }}user/erikferreira",
+          "host": [
+            "{{ _.url }}"
+          ],
+          "path": [
+            "user",
+            "erikferreira"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteUser",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "insomnia/2023.5.8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{ _.url }}user/2",
+          "host": [
+            "{{ _.url }}"
+          ],
+          "path": [
+            "user",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetAllUsers",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "insomnia/2023.5.8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{ _.url }}user",
+          "host": [
+            "{{ _.url }}"
+          ],
+          "path": [
+            "user"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "eriklimaasd"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateUser",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "Insomnia/2023.5.6",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{ _.url }}user/Julia",
+          "host": [
+            "{{ _.url }}"
+          ],
+          "path": [
+            "user",
+            "Julia"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

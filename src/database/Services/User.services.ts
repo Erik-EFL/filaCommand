@@ -60,4 +60,40 @@ export default class UserService {
 
     return newUser;
   };
+
+  static updateUser = async (id: number, data: IPayload) => {
+    const { username } = data;
+
+    if(!username) throw CustomError.badRequest('Username is required');
+
+    const findUser = await this.findUserById(id);
+
+    if (!findUser) throw CustomError.badRequest('User not found');
+
+    const updatedUser = await prisma.users.update({
+      where: {
+        id: id,
+      },
+      data: {
+        username: username,
+      } as IUser,
+    });
+
+    return updatedUser;
+  };
+
+  static deleteUser = async (id: number) => {
+    const findUser = await this.findUserById(id);
+    console.log(findUser);
+
+    if (!findUser) throw CustomError.badRequest('User not found');
+
+    const deletedUser = await prisma.users.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return deletedUser;
+  };
 }

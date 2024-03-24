@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import CustomError from '@/middleware/Custom.error';
-import UserService from "@/database/Services/User.services";
+import CustomError from '../../middleware/Custom.error';
+import UserService from "../../database/Services/User.services";
 
 export default class UserController {
   getAllUsers = async (req: Request, res: Response): Promise<void> => {
@@ -12,26 +12,29 @@ export default class UserController {
     }
   }
 
-  getUserById = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const user = await UserService.findUserById(Number(id));
-      res.status(200).json(user);
-    } catch (error) {
-      throw CustomError.badRequest('User not found');
-    }
-  }
-
-  getUserByUsername = async (req: Request, res: Response) => {
+  createUser = async (req: Request, res: Response) => {
     try {
       const { username } = req.params;
 
-      console.log(username);
+      if(!username) throw CustomError.badRequest('Username is required');
 
-      const user = await UserService.findUserByUsername(username);
-      res.status(200).json(user);
+      const newUser = await UserService.createUser({ username });
+
+      res.status(201).json(newUser);
     } catch (error) {
-      throw CustomError.badRequest('User not found');
+      throw CustomError.badRequest('User not created');
+    }
+  }
+
+  deleteUser = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      await UserService.deleteUser(Number(id));
+
+      res.status(200).send({ message: 'User deleted successfully' });
+    } catch (error) {
+      throw CustomError.badRequest('User not deleted');
     }
   }
 }

@@ -17,8 +17,7 @@ class App {
 
     this.app.get('/', (req: Request, res: Response) => res.json({ ok: true }));
 
-    this.app.use('/register', route.register);
-    this.app.use('/user', route.users);
+    this.app.use('/api/v1/user', route.users);
 
     this.app.use(errorMiddleware);
   }

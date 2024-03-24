@@ -1,0 +1,47 @@
+openapi: "3.0.0"
+info:
+  title: "Fila API"
+  description: "API for managing a queue of people."
+  version: "1.0.0"
+paths:
+  /user/1:
+    get:
+      summary: "GetUserByID"
+      description: "Retrieves user information by ID."
+      responses:
+        '200':
+          description: "Successful operation"
+  /user/erikferreira:
+    get:
+      summary: "GetUserByName"
+      description: "Retrieves user information by username."
+      responses:
+        '200':
+          description: "Successful operation"
+  /user/2:
+    delete:
+      summary: "DeleteUser"
+      description: "Deletes a user by ID."
+      responses:
+        '200':
+          description: "Successful operation"
+  /user:
+    get:
+      summary: "GetAllUsers"
+      description: "Retrieves all users."
+      parameters:
+        - name: "username"
+          in: "query"
+          required: true
+          description: "Username"
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "Successful operation"
+    post:
+      summary: "CreateUser"
+      description: "Creates a new user."
+      responses:
+        '200':
+          description: "Successful operation"
