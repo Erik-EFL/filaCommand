@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon src/App.ts",
     "postinstall": "npx prisma generate",
-    "vercel-build": "npx prisma migrate deploy"
+    "build-migrate": "npx prisma migrate deploy",
+    "start": "npm run postinstall && npm run build-migrate && npm run dev"
   },
   "devDependencies": {
     "@swc/core": "^1.4.8",
