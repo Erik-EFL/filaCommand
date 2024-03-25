@@ -10,9 +10,6 @@
   "scripts": {
     "start": "node build/server.js",
     "dev": "nodemon --watch \"./src/**\" ./src/server.ts",
-    "prestart": "npm install",
-    "test": "mocha -r ts-node/register \"./src/**/*.{test,spec}.ts\" -t 10000 --exit",
-    "pretest": "npm install",
     "build": "tsc",
     "vercel-build": "npx prisma migrate deploy"
   },
