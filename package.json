@@ -4,13 +4,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "author": "Erik Ferreira de Lima <erik.lima.f@outlook.com>",
-  "prisma": {
-    "schema": "src/prisma/schema.prisma"
-  },
   "scripts": {
-    "start": "node build/server.js",
-    "dev": "nodemon --watch \"./src/**\" ./src/server.ts",
-    "build": "tsc",
+    "dev": "nodemon src/server.ts",
     "vercel-build": "npx prisma migrate deploy"
   },
   "devDependencies": {
