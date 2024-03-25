@@ -6,7 +6,7 @@
   "author": "Erik Ferreira de Lima <erik.lima.f@outlook.com>",
   "scripts": {
     "dev": "nodemon src/App.ts",
-    "vercel-build": "npx prisma migrate deploy"
+    "vercel-build": "npx prisma generate && npx prisma migrate deploy"
   },
   "devDependencies": {
     "@swc/core": "^1.4.8",
