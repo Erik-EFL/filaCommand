@@ -15,7 +15,13 @@ class App {
 
     this.app.use(cors());
 
-    this.app.get('/', (req: Request, res: Response) => res.json({ ok: true }));
+    this.app.get('/', (req: Request, res: Response) => {
+      try {
+        res.send('Welcome to the API');
+      } catch (error) {
+        res.status(400).json({ error: error });
+      }
+    });
 
     this.app.use('/user', route.users);
 
