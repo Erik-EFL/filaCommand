@@ -1,11 +1,11 @@
 {
-  "name": "filaCommand",
+  "name": "fila_command",
   "description": "API dedicadas a comando !fila na steam",
   "version": "1.0.0",
   "license": "MIT",
   "author": "Erik Ferreira de Lima <erik.lima.f@outlook.com>",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon src/App.ts",
     "vercel-build": "npx prisma migrate deploy"
   },
   "devDependencies": {
