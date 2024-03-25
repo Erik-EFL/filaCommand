@@ -7,7 +7,7 @@ export default class CustomError extends Error {
   readonly details: ErrorDetails;
 
   constructor(status: number, message: string, details?: ErrorDetails) {
-    super(`Error: ${message} status: ${status}`);
+    super(`Error: ${message} | Error Status Code: ${status}`);
     this.status = status;
     this.details = details || {};
   }
