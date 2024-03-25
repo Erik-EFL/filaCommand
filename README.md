@@ -1,5 +1,32 @@
 # API Documentation
 
+## Installation and Execution Steps for Local Environment:
+
+1. Install dependencies:
+```bash
+
+  npm install
+
+```
+2. Up Docker
+```bash
+
+  docker compose up -d
+
+```
+3. Build the project:
+```bash
+
+  npm run build
+
+```
+4. Start the server:
+```bash
+
+  npm start
+
+```
+
 ## Introduction
 This API is used to create a queue of individuals.
 This document provides details about the API endpoints available in the system.
