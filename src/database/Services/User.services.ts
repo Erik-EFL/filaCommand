@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { IPayload } from '../../entities/interfaces/IPayload.interface';
-import { IUser } from '../../entities/interfaces/IUser.interface';
 import CustomError from '../../middleware/Custom.error';
 
 const prisma = new PrismaClient()
@@ -55,7 +54,7 @@ export default class UserService {
     const newUser = await prisma.users.create({
       data: {
         username: username,
-      } as IUser,
+      },
     });
 
     return newUser;
@@ -76,7 +75,7 @@ export default class UserService {
       },
       data: {
         username: username,
-      } as IUser,
+      },
     });
 
     return updatedUser;

@@ -5,8 +5,8 @@ import UserService from "../../database/Services/User.services";
 export default class UserController {
   getAllUsers = async (req: Request, res: Response): Promise<void> => {
     try {
-      const users = await UserService.findAllUsers();
-      res.status(200).json(users);
+      await UserService.findAllUsers();
+      res.status(200);
     } catch (error) {
       throw CustomError.badRequest('Users not found');
     }
