@@ -1,10 +1,10 @@
-import "express-async-errors";
+// import "express-async-errors";
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from "cors";
-import errorMiddleware from "./middleware/Middleware.error";
+// import errorMiddleware from "./middleware/Middleware.error";
 import { prismaClient } from "./database/database";
-import CustomError from "./middleware/Custom.error";
+// import CustomError from "./middleware/Custom.error";
 
 const port = process.env.PORT ?? 3001
 
@@ -30,7 +30,7 @@ app.get('/users/:id', async (req: Request, res: Response) => {
     },
   });
 
-  if (!user) throw CustomError.badRequest('User not found');
+  // if (!user) throw CustomError.badRequest('User not found');
 
   res.status(200).json(user);
 })
@@ -50,7 +50,7 @@ app.get('/users/:username', async (req: Request, res: Response) => {
 app.post('/users/add/:username', async (req: Request, res: Response) => {
   const { username } = req.params;
 
-  if(!username) throw CustomError.badRequest('Username is required');
+  // if(!username) throw CustomError.badRequest('Username is required');
 
   const findUser = await prismaClient.users.findFirst({
     where: {
@@ -58,7 +58,7 @@ app.post('/users/add/:username', async (req: Request, res: Response) => {
     },
   });
 
-  if (findUser) throw CustomError.conflict('User already exists');
+  // if (findUser) throw CustomError.conflict('User already exists');
 
   const newUser = await prismaClient.users.create({
     data: {
@@ -85,15 +85,15 @@ app.put('/users/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   const { username } = req.body;
 
-  if(!username) throw CustomError.badRequest('Username is required');
+  // if(!username) throw CustomError.badRequest('Username is required');
 
-  const findUser = await prismaClient.users.findUnique({
+  await prismaClient.users.findUnique({
     where: {
       id: Number(id),
     },
   });
 
-  if (!findUser) throw CustomError.badRequest('User not found');
+  // if (!findUser) throw CustomError.badRequest('User not found');
 
   const updatedUser = await prismaClient.users.update({
     where: {
@@ -107,6 +107,6 @@ app.put('/users/:id', async (req: Request, res: Response) => {
   res.status(200).json(updatedUser);
 })
 
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 app.listen(port, () => console.log('Server is running on port ', port))
