@@ -8,19 +8,29 @@
   npm install
 
 ```
+
 2. Up Docker
 ```bash
 
   docker compose up -d
 
 ```
-3. Build the project:
+
+3. Build migrations:
+```bash
+
+  nxp prisma init && npx prisma generate && npx prisma migrate dev
+
+```
+
+4. Build project:
 ```bash
 
   npm run build
 
 ```
-4. Start the server:
+
+5. Start the server:
 ```bash
 
   npm start
