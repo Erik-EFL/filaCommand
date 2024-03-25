@@ -4,6 +4,9 @@ import route from "./routes/export.routes";
 import cors from "cors";
 import 'dotenv/config';
 import errorMiddleware from "./middleware/Middleware.error";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient()
 
 class App {
   public app: express.Express;
@@ -37,7 +40,10 @@ class App {
   }
 
   public start(PORT: string | number):void {
-    this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+    this.app.listen(PORT, () => {
+      console.log(`Running on port ${PORT}`)
+      prisma.$connect();
+    });
   }
 }
 
