@@ -25,12 +25,10 @@ class App {
   private config(): void {
     this.app.use(express.urlencoded({ extended: true }));
 
-    const allowedHeaders = ['Content-Type', 'Authorization'];
-
     const accessControl: express.RequestHandler = (_req: Request, res: Response, next: NextFunction) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
-      res.header('Access-Control-Allow-Headers', allowedHeaders.join(','));
+      res.header('Access-Control-Allow-Headers', '*');
       next();
     };
 

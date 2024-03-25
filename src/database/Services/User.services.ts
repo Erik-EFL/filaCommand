@@ -15,17 +15,15 @@ export default class UserService {
   };
 
   static findUserById = async (id: number) => {
-    try {
-      const user = await prisma.users.findUnique({
-        where: {
-          id: Number(id),
-        },
-      });
+    const user = await prisma.users.findUnique({
+      where: {
+        id,
+      },
+    });
 
-      return user;
-    } catch (error) {
-      throw CustomError.badRequest('User not found');
-    }
+    if (!user) throw CustomError.badRequest('User not found');
+
+    return user;
   };
 
   static findUserByUsername = async (username: string) => {
