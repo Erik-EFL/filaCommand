@@ -6,6 +6,7 @@
   "author": "Erik Ferreira de Lima <erik.lima.f@outlook.com>",
   "scripts": {
     "dev": "nodemon --watch \"./src/**\" ./src/App.ts",
+    "build": "tsc",
     "postinstall": "npx prisma generate",
     "build-migrate": "npx prisma migrate deploy",
     "start": "npm run postinstall && npm run build-migrate && npm run dev"
