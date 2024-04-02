@@ -9,6 +9,7 @@
     "build": "tsc",
     "postinstall": "npx prisma generate",
     "build-migrate": "npx prisma migrate deploy",
+    "prisma": "npm run postinstall && npm run build-migrate",
     "start": "npm run postinstall && npm run build-migrate && npm run dev"
   },
   "devDependencies": {
