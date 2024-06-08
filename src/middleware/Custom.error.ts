@@ -2,29 +2,30 @@ export interface ErrorDetails {
   [key: string]: any;
 }
 
+/**
+ * Represents a custom error class that extends the built-in Error class.
+ * Provides additional properties for status code and error details.
+ * Includes static methods for common HTTP error statuses.
+ */
 export default class CustomError extends Error {
-  readonly status: number;
-  readonly details: ErrorDetails;
+  status: number | undefined;
+  details: ErrorDetails;
 
-  constructor(status: number, message: string, details?: ErrorDetails) {
+  constructor(status: number | undefined, message: string, details?: ErrorDetails) {
     super(`Error: ${message} | Error Status Code: ${status}`);
     this.status = status;
     this.details = details || {};
   }
 
-  static notFound(message: string, details?: ErrorDetails) {
-    return new CustomError(404, message, details);
+  static custonError(status: number, message: string, details?: ErrorDetails) {
+    return new CustomError(status, message, details);
   }
 
-  static badRequest(message: string, details?: ErrorDetails) {
-    return new CustomError(400, message, details);
-  }
-
-  static conflict(message: string, details?: ErrorDetails) {
-    return new CustomError(409, message, details);
-  }
-
-  static serverError(message: string, details?: ErrorDetails) {
-    return new CustomError(500, message, details);
+  toJSON() {
+    return {
+      status: this.status,
+      details: this.details,
+      message: this.message
+    };
   }
 }

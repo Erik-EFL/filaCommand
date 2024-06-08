@@ -1,28 +1,28 @@
-import { IUser } from '../../entities/interfaces/IUser.interface';
-import CustomError from '../../middleware/Custom.error';
 import { IPayload } from '../../entities/interfaces/IPayload.interface';
-import { prismaClient } from '../database';
+import { IUser } from '../../entities/interfaces/IUser.interface';
 import { RegisterSchema } from '../../entities/Types/Register.type';
+import CustomError from '../../middleware/Custom.error';
+import { prisma } from '../database';
 
 export default class UserService {
   public static async getAllUsers(): Promise<IUser[]> {
-    return await prismaClient.users.findMany();
+    const users = await prisma.users.findMany();
+
+    return users;
   }
 
   public static async getUserById(id: number): Promise<IUser> {
-    const user = await prismaClient.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: {
         id,
       },
     });
 
-    if (!user) throw CustomError.badRequest('User not found');
-
     return user;
   }
 
   public static async getUserByUsername(username: string): Promise<IUser> {
-    const user = await prismaClient.users.findFirst({
+    const user = await prisma.users.findFirst({
       where: {
         username,
       },
@@ -34,15 +34,13 @@ export default class UserService {
   public static async createUser(payload: IPayload): Promise<IUser> {
     const { username } = RegisterSchema.parse(payload);
 
-    const findUser = await prismaClient.users.findFirst({
+    await prisma.users.findFirst({
       where: {
         username,
       },
     });
 
-    if (findUser) throw CustomError.badRequest('User already exists');
-
-    return await prismaClient.users.create({
+    return await prisma.users.create({
       data: {
         username,
       },
@@ -52,15 +50,14 @@ export default class UserService {
   public static async updateUser(id: number, payload: IPayload): Promise<IUser> {
     const { username } = RegisterSchema.parse(payload);
 
-    const findUser = await prismaClient.users.findUnique({
+    await prisma.users.findUnique({
       where: {
         id,
       },
     });
 
-    if (!findUser) throw CustomError.badRequest('User not found');
 
-    return await prismaClient.users.update({
+    return await prisma.users.update({
       where: {
         id,
       },
@@ -71,15 +68,13 @@ export default class UserService {
   }
 
   public static async deleteUser(id: number): Promise<IUser> {
-    const user = await prismaClient.users.findUnique({
+    await prisma.users.findUnique({
       where: {
         id,
       },
     });
 
-    if (!user) throw CustomError.badRequest('User not found');
-
-    return await prismaClient.users.delete({
+    return await prisma.users.delete({
       where: {
         id,
       },
