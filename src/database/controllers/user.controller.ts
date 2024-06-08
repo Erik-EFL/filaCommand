@@ -1,81 +1,82 @@
 import { Request, Response } from "express";
-import userService from "../services/user.services";
 import CustomError from '../../middleware/Custom.error';
+import userService from "../services/user.services";
 
 export default class UserController {
   async getAllUsers(_req: Request, res: Response): Promise<void> {
-    try{
-      const users = await userService.getAllUsers();
-      res.status(200).json(users);
-    } catch (error) {
-      throw CustomError.badRequest("Error getting users");
+    const users = await userService.getAllUsers();
+
+    if (!users) {
+      throw new CustomError(404, "Users not found");
     }
+
+    res.status(200).json(users);
   }
 
   async getUserById(req: Request, res: Response): Promise<void> {
-    try {
-      const { id } = req.params;
+    const { id } = req.params;
 
-      const user = await userService.getUserById(Number(id));
+    const user = await userService.getUserById(Number(id));
 
-      res.status(200).json(user);
-    } catch (error) {
-      throw CustomError.badRequest("Id is required");
+    if (!user) {
+      throw new CustomError(404, "User not found");
     }
+
+    res.status(200).json(user);
   }
 
   async getUserByUsername(req: Request, res: Response): Promise<void> {
-    try {
-      const { username } = req.params;
+    const { username } = req.params;
 
-      const user = await userService.getUserByUsername(username);
+    const user = await userService.getUserByUsername(username);
 
-      if (!user) throw CustomError.notFound('User not found');
-
-      res.status(200).json(user);
-    } catch (error: any) {
-      throw CustomError.notFound(`Username Not Found`);
+    if (!user) {
+      throw new CustomError(404, "User not found");
     }
+
+    res.status(200).json(user);
   }
 
   async createUser(req: Request, res: Response): Promise<void> {
     const { username } = req.params;
 
-    if (!username) throw CustomError.badRequest('Username is required');
+    const findedUser = await userService.getUserByUsername(username);
 
-    const userVerify = await userService.getUserByUsername(username);
-
-    if (userVerify) throw CustomError.badRequest('Username already exists');
+    if (findedUser) {
+      throw new CustomError(409, "Username already exists");
+    }
 
     const user = await userService.createUser({ username });
+
+    if (!user) {
+      throw new CustomError(400, "Error creating user");
+    }
 
     res.status(201).json(user);
   }
 
   async updateUser(req: Request, res: Response): Promise<void> {
-    try {
-      const { id } = req.params;
-      const { username } = req.body;
+    const { id } = req.params;
+    const { username } = req.body;
 
-      if (!username) throw CustomError.badRequest('Username is required');
-
-      const user = await userService.updateUser(Number(id), { username });
-
-      res.status(200).json(user);
-    } catch (error) {
-      throw CustomError.badRequest("Id and username are required");
+    if (!username) {
+      throw new CustomError(400, "Invalid username");
     }
+
+    const user = await userService.updateUser(Number(id), { username });
+
+    if (!user) {
+      throw new CustomError(400, "Error updating user");
+    }
+
+    res.status(200).json(user);
   }
 
   async deleteUser(req: Request, res: Response): Promise<void> {
-    try {
-      const { id } = req.params;
+    const { id } = req.params;
 
-      await userService.deleteUser(Number(id));
+    await userService.deleteUser(Number(id));
 
-      res.status(204).json();
-    } catch (error) {
-      throw CustomError.badRequest("Id is required");
-    }
+    res.status(204).json({ message: "User deleted" });
   }
 }
